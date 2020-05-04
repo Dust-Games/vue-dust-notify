@@ -1,24 +1,43 @@
-# alert
+# vue-dust-notify
 
-## Project setup
-```
-npm install
-```
+Vue notifications for Dust Games project.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+## Install
+
+```bash
+npm install vue-dust-notify
 ```
 
-### Compiles and minifies for production
-```
-npm run build
+## Usage
+
+```js
+import Vue from "vue";
+
+import Notify from "vue-toast-notification";
+Vue.use(Notify);
+
+// default message without options
+this.$notify.default("Message!");
+// success message with title
+this.$notify.success("Message!", { title: "Title" });
+// warning message with overridden message
+this.$notify.warning("Message!", { message: "Another mes" });
+// error message without options
+this.$notify.error("Message!");
+// custom message with options (no first parameter in custom)
+this.$notify.show({ type: "default", title: "Tit", message: "Mes" });
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Options
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+In `this.$notify.` + `success`/`warning`/`error`/`default` you should write message as first parameter and object with this options as second parameter.
+In `this.$notify.show` you should write object with this options as fisrt (and last) parameter.
+
+| Attribute |   Type   |  Default  | Description                                              |
+| :-------- | :------: | :-------: | :------------------------------------------------------- |
+| message   |  String  |     -     | Message (required)                                       |
+| title     |  String  |     -     | Title                                                    |
+| type      |  String  | `success` | One of `success`, `warning`, `error`, `default`          |
+| timeout   |  Number  |  `3000`   | The number of milliseconds after which the notice closes |
+| onClick   | Function |     -     | Do something when user clicks                            |
+| onClose   | Function |     -     | Do something after toast gets dismissed                  |
