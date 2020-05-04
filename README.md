@@ -33,11 +33,9 @@ this.$notify.show({ type: "default", title: "Tit", message: "Mes" });
 In `this.$notify.` + `success`/`warning`/`error`/`default` you should write message as first parameter and object with this options as second parameter.
 In `this.$notify.show` you should write object with this options as fisrt (and last) parameter.
 
-| Attribute |   Type   |  Default  | Description                                              |
-| :-------- | :------: | :-------: | :------------------------------------------------------- |
-| message   |  String  |     -     | Message (required)                                       |
-| title     |  String  |     -     | Title                                                    |
-| type      |  String  | `success` | One of `success`, `warning`, `error`, `default`          |
-| timeout   |  Number  |  `3000`   | The number of milliseconds after which the notice closes |
-| onClick   | Function |     -     | Do something when user clicks                            |
-| onClose   | Function |     -     | Do something after toast gets dismissed                  |
+| Attribute |  Type  |  Default  | Description                                              |
+| :-------- | :----: | :-------: | :------------------------------------------------------- |
+| message   | String |     -     | Message (required)                                       |
+| title     | String |     -     | Title                                                    |
+| type      | String | `success` | One of `success`, `error`, `default`                     |
+| timeout   | Number |  `3000`   | The number of milliseconds after which the notice closes |

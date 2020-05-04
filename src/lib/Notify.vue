@@ -1,40 +1,40 @@
 <template>
   <transition name="slide">
-    <div
-      v-show="isActive"
-      class="notify"
-      :class="[`notify-${type}`, `is-bottom-right`]"
-      @click="whenClicked"
-    >
-      <div class="notify-icon"></div>
-      <h1 class="notify-title">{{ title }}</h1>
-      <p class="notify-text">{{ message }}</p>
+    <div v-show="isActive" class="notify" :class="[`notify__type_${type}`]">
+      <div @click="close">
+        <div class="notify__close">
+          <div class="notify__close-one" />
+          <div class="notify__close-two" />
+        </div>
+      </div>
+
+      <h1 class="notify__title">{{ title }}</h1>
+      <p class="notify__text">{{ message }}</p>
+      <div class="notify__strip" />
     </div>
   </transition>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts">
+import Vue from "vue";
+const eventBus = new Vue();
 
-<script>
-import eventBus from "./js/bus";
-
-export default {
+export default Vue.extend({
   name: "NotifyComponent",
 
   props: {
     type: { type: String, default: "success" },
     title: { type: String, default: "" },
     message: { type: String, required: true },
-    timeout: { type: Number, default: 3000 },
-    onClose: { type: Function, default: () => {} },
-    onClick: { type: Function, default: () => {} }
+    timeout: { type: Number, default: 3000 }
   },
 
   data() {
     return {
-      isActive: false,
-      parentTop: null,
-      parentBottom: null
+      isActive: false as Boolean,
+      parentTop: null as HTMLElement | null,
+      parentBottom: null as HTMLElement | null,
+      timer: null as any
     };
   },
 
@@ -65,21 +65,23 @@ export default {
         this.parentBottom = document.createElement("div");
         this.parentBottom.className = "notices is-bottom";
       }
-      const container = document.body;
+      const container: HTMLElement = document.body;
       container.appendChild(this.parentTop);
       container.appendChild(this.parentBottom);
       let containerParentClass = "is-custom-parent";
-      if (this.container) {
+      if (container) {
         this.parentTop.classList.add(containerParentClass);
         this.parentBottom.classList.add(containerParentClass);
       }
     },
 
-    removeElement(el) {
+    removeElement(el: Element) {
       if (typeof el.remove !== "undefined") {
         el.remove();
       } else {
-        el.parentNode.removeChild(el);
+        if (el.parentNode) {
+          el.parentNode.removeChild(el);
+        }
       }
     },
 
@@ -88,38 +90,31 @@ export default {
       this.isActive = false;
       // Timeout for the animation complete before destroying
       setTimeout(() => {
-        this.onClose.apply(null, arguments);
         this.$destroy();
         this.removeElement(this.$el);
-      }, 150);
+      }, 500);
     },
 
     showNotice() {
-      this.parentBottom.insertAdjacentElement("afterbegin", this.$el);
+      if (this.parentBottom) {
+        this.parentBottom.insertAdjacentElement("afterbegin", this.$el);
+      }
+
       this.isActive = true;
       this.timer = setTimeout(() => this.close(), this.timeout);
-    },
-
-    whenClicked() {
-      this.onClick.apply(null, arguments);
-      this.close();
     }
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>
-$notify-colors: () !default;
-$notify-colors: map-merge(
-  (
-    "success": #28a745,
-    "info": #17a2b8,
-    "warning": #ffc107,
-    "error": #dc3545,
-    "default": #343a40
-  ),
-  $notify-colors
-);
+$primary-color: #14233b;
+$white: white;
+$orange: #ff9a44;
+
+$success: #28a745;
+$error: linear-gradient(0deg, #fc6080 0%, #ff9a44 100%);
+$default: linear-gradient(0deg, #48c6ef 0%, #6f86d6 100%);
 
 @keyframes slideIn {
   from {
@@ -136,27 +131,24 @@ $notify-colors: map-merge(
 @keyframes slideOut {
   from {
     transform: translate3d(0, 0, 0);
-    // opacity: 1;
+    opacity: 1;
   }
 
   to {
-    // opacity: 0;
-    visibility: hidden;
+    opacity: 0;
+    // visibility: hidden;
     transform: translate3d(100%, 0, 0);
   }
-}
-.slide-enter-active,
-.slide-leave-active {
 }
 
 .slide-enter-active {
   animation-name: slideIn;
-  animation-duration: 0.7s;
+  animation-duration: 0.4s;
 }
 
 .slide-leave-active {
   animation-name: slideOut;
-  animation-duration: 4s;
+  animation-duration: 0.8s;
 }
 
 .notify {
@@ -165,39 +157,99 @@ $notify-colors: map-merge(
   border-radius: 0.25em;
   pointer-events: auto;
   opacity: 0.92;
-  color: #fff;
+  background: $primary-color;
+  color: $white;
   min-height: 3em;
-  cursor: pointer;
+  min-width: 300px;
+  position: relative;
 
   display: flex;
   flex-direction: column;
+  align-self: flex-end;
 
-  &-title {
+  &__close {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    height: 25px;
+    width: 20px;
+    z-index: 2;
+
+    &-one,
+    &-two {
+      position: relative;
+      content: "";
+      height: 17px;
+      width: 2px;
+      background: $white;
+      transition: all 0.4s ease-out;
+    }
+
+    &-one {
+      right: -13px;
+      top: -2px;
+      transform: rotate(45deg);
+    }
+
+    &-two {
+      right: -13px;
+      top: -19px;
+      transform: rotate(-45deg);
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      & .notify__close-one {
+        background: $orange !important;
+        transform: rotate(135deg);
+      }
+
+      & .notify__close-two {
+        background: $orange !important;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  &__title,
+  &__text {
+    z-index: 1;
+    padding-left: 20px !important;
+  }
+
+  &__title {
     font-size: 18px;
     margin: 0;
     padding: 10px 15px 0;
     word-break: break-all;
   }
 
-  &-text {
+  &__text {
     font-size: 14px;
     margin: 0;
     padding: 10px 15px 15px;
     word-break: break-all;
   }
 
-  &-icon {
-    display: none;
-  }
+  &__strip {
+    position: absolute;
+    top: 0;
+    left: 10px;
 
-  &.is-bottom-right {
-    align-self: flex-end;
+    width: 25px;
+    height: 100%;
   }
 
   // Colors
-  @each $color, $value in $notify-colors {
-    &-#{$color} {
-      background-color: $value;
+  $colors: (
+    "success": $success,
+    "error": $error,
+    "default": $default
+  );
+  @each $color, $value in $colors {
+    &__type_#{$color} .notify__strip {
+      background: $value;
     }
   }
 }

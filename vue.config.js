@@ -6,7 +6,7 @@ module.exports = {
     // then add your own
     config
       .entry("examples")
-      .add("./src/examples/index.js")
+      .add("./src/examples/index.ts")
       .end();
     // .entry("lib")
     // .add("./src/lib/index.js")

@@ -22,11 +22,8 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "src/lib/index.js",
+    "src/lib/index.ts",
     "src/examples/index.ts"
   ],
-  "exclude": ["node_modules"],
-  "rules": {
-    "interface-name": [true, "never"]
-  }
+  "exclude": ["node_modules"]
 }

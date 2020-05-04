@@ -1,6 +1,5 @@
 import _Vue from "vue";
-import Notify from "../Notify.vue";
-import eventBus from "./bus";
+import Notify from "./Notify.vue";
 
 export interface INotifyParams {
   message?: string;
@@ -16,10 +15,6 @@ const Api = (Vue: typeof _Vue, globalOptions = {}) => {
         el: document.createElement("div"),
         propsData: { ...globalOptions, ...innerOptions, message }
       });
-    },
-
-    close() {
-      eventBus.$emit("notify.clear");
     },
 
     default(message: string, options = {}) {

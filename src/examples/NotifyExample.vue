@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="addNotify">Добавить уведомление</button>
-    <p>Тип (success, error, warning, default)</p>
+    <p>Тип (success, error, default)</p>
     <input v-model="type" />
     <p>Заголовок</p>
     <input v-model="title" />
@@ -13,23 +13,11 @@
 </template>
 
 <script lang="ts">
-// import Vue from "vue";
+import Vue from "vue";
 
-// export default Vue.extend({
-//   name: "Example",
+export default Vue.extend({
+  name: "Example",
 
-//   methods: {
-//     addNotify() {
-//       console.log(this);
-//       this.$notify.success("Удачное сообщение, повезло!");
-//     }
-//   }
-// });
-//
-</script>
-
-<script>
-export default {
   data() {
     return {
       type: "default",
@@ -38,11 +26,12 @@ export default {
       timeout: 3000
     };
   },
+
   methods: {
     addNotify() {
       const { type, message, title, timeout } = this;
       this.$notify.show(message, { message, type, title, timeout: Number(timeout) });
     }
   }
-};
+});
 </script>
