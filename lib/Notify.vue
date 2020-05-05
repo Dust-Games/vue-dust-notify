@@ -17,7 +17,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-const eventBus = new Vue();
 
 export default Vue.extend({
   name: "NotifyComponent",
@@ -32,8 +31,7 @@ export default Vue.extend({
   data() {
     return {
       isActive: false as Boolean,
-      parentTop: null as HTMLElement | null,
-      parentBottom: null as HTMLElement | null,
+      parent: null as HTMLElement | null,
       timer: null as any
     };
   },
@@ -44,35 +42,18 @@ export default Vue.extend({
 
   mounted() {
     this.showNotice();
-    eventBus.$on("toast.clear", this.close);
-  },
-
-  beforeDestroy() {
-    eventBus.$off("toast.clear", this.close);
   },
 
   methods: {
     setupContainer() {
-      this.parentTop = document.querySelector(".notices.is-top");
-      this.parentBottom = document.querySelector(".notices.is-bottom");
+      this.parent = document.querySelector(".notifies");
       // No need to create them, they already exists
-      if (this.parentTop && this.parentBottom) return;
-      if (!this.parentTop) {
-        this.parentTop = document.createElement("div");
-        this.parentTop.className = "notices is-top";
+      if (!this.parent) {
+        this.parent = document.createElement("div");
+        this.parent.className = "notifies";
       }
-      if (!this.parentBottom) {
-        this.parentBottom = document.createElement("div");
-        this.parentBottom.className = "notices is-bottom";
-      }
-      const container: HTMLElement = document.body;
-      container.appendChild(this.parentTop);
-      container.appendChild(this.parentBottom);
-      let containerParentClass = "is-custom-parent";
-      if (container) {
-        this.parentTop.classList.add(containerParentClass);
-        this.parentBottom.classList.add(containerParentClass);
-      }
+
+      document.body.appendChild(this.parent);
     },
 
     removeElement(el: Element) {
@@ -96,8 +77,8 @@ export default Vue.extend({
     },
 
     showNotice() {
-      if (this.parentBottom) {
-        this.parentBottom.insertAdjacentElement("afterbegin", this.$el);
+      if (this.parent) {
+        this.parent.insertAdjacentElement("afterbegin", this.$el);
       }
 
       this.isActive = true;
@@ -115,6 +96,13 @@ $orange: #ff9a44;
 $success: linear-gradient(0deg, #b7f8db 0%, #50a7c2 100%);
 $error: linear-gradient(0deg, #fc6080 0%, #ff9a44 100%);
 $default: linear-gradient(0deg, #48c6ef 0%, #6f86d6 100%);
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./NotoSans-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 
 @keyframes slideIn {
   from {
@@ -136,7 +124,6 @@ $default: linear-gradient(0deg, #48c6ef 0%, #6f86d6 100%);
 
   to {
     opacity: 0;
-    // visibility: hidden;
     transform: translate3d(100%, 0, 0);
   }
 }
@@ -153,15 +140,15 @@ $default: linear-gradient(0deg, #48c6ef 0%, #6f86d6 100%);
 
 .notify {
   margin: 0.5em 0;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   border-radius: 0.25em;
   pointer-events: auto;
-  opacity: 0.92;
   background: $primary-color;
   color: $white;
   min-height: 3em;
   min-width: 300px;
   position: relative;
+  font-family: "NotoSans";
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;

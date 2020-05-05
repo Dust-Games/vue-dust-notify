@@ -1,6 +1,6 @@
 // styles for all notices, not single
 
-.notices {
+.notifies {
   position: fixed;
   display: flex;
   top: 0;
@@ -11,35 +11,11 @@
   overflow: hidden;
   z-index: 1052;
   pointer-events: none;
-
-  // Notice container positions
-  &.is-top {
-    flex-direction: column;
-  }
-
-  &.is-bottom {
-    flex-direction: column-reverse;
-  }
-
-  &.is-custom-parent {
-    position: absolute;
-  }
+  flex-direction: column-reverse;
+  // position: absolute;
 
   @media screen and (max-width: 768px) {
     padding: 0;
     position: fixed !important;
   }
-}
-
-@font-face {
-  font-family: "NotoSans";
-  src: url("./NotoSans-Regular.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-
-* {
-  font-family: "NotoSans";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
