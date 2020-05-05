@@ -16,6 +16,9 @@ import Vue from "vue";
 import Notify from "vue-dust-notify";
 Vue.use(Notify);
 
+// import css
+import "vue-dust-notify/dist/vue-dust-notify.css";
+
 // default message without options
 this.$notify.default("Message!");
 // success message with title

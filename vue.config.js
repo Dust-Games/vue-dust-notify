@@ -6,10 +6,10 @@ module.exports = {
     // then add your own
     config
       .entry("examples")
-      .add("./src/examples/index.ts")
+      .add("./examples/index.ts")
       .end();
     // .entry("lib")
-    // .add("./src/lib/index.js")
+    // .add("./lib/index.js")
     // .end();
   }
 };
