@@ -1,14 +1,14 @@
 {
   "name": "vue-dust-notify",
   "description": "Vue.js notifies for Dust Games project",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "main": "./dist/vue-dust-notify.common.js",
   "types": "./types/*",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build-lib": "vue-cli-service build --target lib --name vue-dust-notify lib/index.ts",
-    "publish": "npm publish --access public",
+    "publish-lib": "npm publish --access public",
     "lint": "vue-cli-service lint"
   },
   "repository": {

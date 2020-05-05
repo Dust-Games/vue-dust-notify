@@ -30,3 +30,16 @@
     position: fixed !important;
   }
 }
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./NotoSans-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "NotoSans";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
