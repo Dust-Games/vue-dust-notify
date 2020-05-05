@@ -3,11 +3,11 @@
   "description": "Vue.js notifies for Dust Games project",
   "version": "0.1.1",
   "main": "./dist/vue-dust-notify.common.js",
-  "types": "./types.d.ts",
+  "types": "./types/*",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-lib": "vue-cli-service build --target lib --name vue-dust-notify src/lib/index.js",
+    "build-lib": "vue-cli-service build --target lib --name vue-dust-notify src/lib/index.ts",
     "publish": "npm publish --access public",
     "lint": "vue-cli-service lint"
   },
@@ -27,9 +27,9 @@
   "license": "MIT",
   "homepage": "https://github.com/Dust-Games/vue-dust-notify#readme",
   "files": [
-    "public/*",
+    "dist/*",
     "src/lib/*",
-    "src/types.d.ts"
+    "src/types/*"
   ],
   "dependencies": {
     "core-js": "^3.6.4",

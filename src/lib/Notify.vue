@@ -112,7 +112,7 @@ $primary-color: #14233b;
 $white: white;
 $orange: #ff9a44;
 
-$success: #28a745;
+$success: linear-gradient(0deg, #b7f8db 0%, #50a7c2 100%);
 $error: linear-gradient(0deg, #fc6080 0%, #ff9a44 100%);
 $default: linear-gradient(0deg, #48c6ef 0%, #6f86d6 100%);
 
