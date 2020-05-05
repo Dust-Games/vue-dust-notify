@@ -13,7 +13,7 @@ npm install vue-dust-notify
 ```js
 import Vue from "vue";
 
-import Notify from "vue-toast-notification";
+import Notify from "vue-dust-notify";
 Vue.use(Notify);
 
 // default message without options

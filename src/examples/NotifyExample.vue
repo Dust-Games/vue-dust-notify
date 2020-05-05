@@ -15,6 +15,16 @@
 <script lang="ts">
 import Vue from "vue";
 
+declare module "vue/types/vue" {
+  interface Vue {
+    $notify: any;
+  }
+
+  interface VueConstructor {
+    $notify: any;
+  }
+}
+
 export default Vue.extend({
   name: "Example",
 

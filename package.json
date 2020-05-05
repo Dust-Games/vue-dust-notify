@@ -1,18 +1,19 @@
 {
   "name": "vue-dust-notify",
   "description": "Vue.js notifies for Dust Games project",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/vue-dust-notify.common.js",
   "types": "./types.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build-lib": "vue-cli-service build --target lib --name vue-dust-notify src/lib/index.js",
+    "publish": "npm publish --access public",
     "lint": "vue-cli-service lint"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/spanri/vue-dust-notify.git"
+    "url": "https://github.com/Dust-Games/vue-dust-notify.git"
   },
   "keywords": [
     "front-end",
@@ -24,9 +25,11 @@
   ],
   "author": "spanri <spanri.dev@mail.ru>",
   "license": "MIT",
-  "homepage": "https://github.com/constkhi/vue-simple-alert#readme",
+  "homepage": "https://github.com/Dust-Games/vue-dust-notify#readme",
   "files": [
-    "/lib"
+    "public/*",
+    "src/lib/*",
+    "src/types.d.ts"
   ],
   "dependencies": {
     "core-js": "^3.6.4",
